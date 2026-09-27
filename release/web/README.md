@@ -1,5 +1,7 @@
 # 棱镜回路
 
+Prism-circuit
+
 基于 LayaAir 3.4 的竖屏光路解谜小游戏。旋转直线和转角模块，将左侧光源接到右侧星核。原工程《月夜拾光》保持独立；本作没有收集、躲避或生存计时玩法。
 
 ## 玩法与引擎表现
@@ -19,6 +21,10 @@
 ```
 
 浏览器打开 `http://127.0.0.1:8799/`。如端口占用，可执行 `PORT=8800 ./scripts/preview.sh`。已构建的 Web 文件在 `release/web/`；同目录还提供可直接解压预览的 `棱镜回路-Web.zip`。
+
+## Cloudflare Pages 部署
+
+Git 仓库中已包含 `release/web/` 构建产物。Cloudflare Pages 连接此仓库时，生产分支选 `main`，构建命令留空，输出目录填 `release/web`。每次修改源码后，先运行 `./scripts/build.sh`，再提交源码和新的 `release/web` 文件。也可用 Wrangler 直接上传 `release/web` 目录。
 
 `build.sh` 优先调用 `~/.layaair/layaair`，可用 `LAYAAIR_CLI` 指定官方 CLI。未安装 CLI 时，使用已包含的 LayaAir 3.4 Web 运行库与 TypeScript 编译器生成预览包；可用 `TSC_BIN` 指定 `tsc`。环境要求 Node.js、Python 3、TypeScript 或 LayaAir IDE/CLI 3.4。规则检查：`node scripts/check-rules.cjs`。
 
