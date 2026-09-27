@@ -24,7 +24,15 @@ Prism-circuit
 
 ## Cloudflare Pages 部署
 
-Git 仓库中已包含 `release/web/` 构建产物。Cloudflare Pages 连接此仓库时，生产分支选 `main`，构建命令留空，输出目录填 `release/web`。每次修改源码后，先运行 `./scripts/build.sh`，再提交源码和新的 `release/web` 文件。也可用 Wrangler 直接上传 `release/web` 目录。
+公开游戏：[prism-circuit-xieyuhai.pages.dev](https://prism-circuit-xieyuhai.pages.dev/)。Cloudflare 项目为 `prism-circuit-xieyuhai`，当前使用 Pages Direct Upload，GitHub 仓库保存源码和 `release/web/` 构建产物。推送 GitHub 不会自动更新 Pages；每次修改源码后运行：
+
+```bash
+./scripts/build.sh
+node scripts/check-rules.cjs
+npx wrangler pages deploy release/web --project-name prism-circuit-xieyuhai --branch main
+```
+
+上传后再提交源码和新的 `release/web/` 文件到 [GitHub 仓库](https://github.com/xieyuhai/Prism-circuit)。
 
 `build.sh` 优先调用 `~/.layaair/layaair`，可用 `LAYAAIR_CLI` 指定官方 CLI。未安装 CLI 时，使用已包含的 LayaAir 3.4 Web 运行库与 TypeScript 编译器生成预览包；可用 `TSC_BIN` 指定 `tsc`。环境要求 Node.js、Python 3、TypeScript 或 LayaAir IDE/CLI 3.4。规则检查：`node scripts/check-rules.cjs`。
 
